@@ -25,10 +25,10 @@ class MotorCtrl
 
 public:
 	MotorCtrl(void);
-	void M1(int16_t Speed);
-	void M2(int16_t Speed);
-	void M3(int16_t Speed);
-	void M4(int16_t Speed);
+	void M1(int speed);
+	void M2(int speed);
+	void M3(int speed);
+	void M4(int speed);
 	void Stop(void);
 };
 

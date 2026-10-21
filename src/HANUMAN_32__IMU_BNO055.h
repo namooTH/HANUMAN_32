@@ -72,7 +72,13 @@ public:
 	Vector grv  = {0, 0, 0};
 
 private:
-	//* BNO055 Registers Map*//
+	TwoWire* privI2C_IMU = &Wire;
+	void     WriteRegister(uint8_t reg, uint8_t value);
+	uint8_t  ReadRegister8b(uint8_t reg);
+	uint16_t ReadRegister16b(uint8_t reg);
+
+public:
+    //* BNO055 Registers Map*//
 	typedef enum
 	{
 		BNO055_REG_ADDRESS__MAG_RADIUS_MSB   = 0x6A,
@@ -175,13 +181,7 @@ private:
 		VECTOR_GRAVITY       = BNO055_REG_ADDRESS__GRV_DATA_X_LSB
 	} bno055_vector_address_t;
 
-	TwoWire* privI2C_IMU = &Wire;
 	void     getVector(bno055_vector_address_t vector_reg);
-	void     WriteRegister(uint8_t reg, uint8_t value);
-	uint8_t  ReadRegister8b(uint8_t reg);
-	uint16_t ReadRegister16b(uint8_t reg);
-
-public:
 	void   update(bno055_dataType_t dataType = all);
 	double read(bno055_dataType_t dataType);
 };

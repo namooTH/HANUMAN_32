@@ -39,9 +39,11 @@
 #include "HANUMAN_32__MotorCtrl.h"
 #include "HANUMAN_32__SwitchAndKnob.h"
 #include "HANUMAN_32__ADC_MCP3008.h"
-#include "HANUMAN_32__TFT_ST7735S.h"
 #include "HANUMAN_32__IMU_BNO055.h"
 #include "HANUMAN_32__PWM_PCA9685.h"
+
+#include <TFT_eSPI.h>
+
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -52,11 +54,13 @@
 
 /// ================================================================================================================================
 
+#define USE_DMA_TO_TFT
+
 Encoder       enc;
 MotorCtrl     mtr;
 SwitchAndKnob sw;
 ADC_MCP3008   adc;
-TFT_ST7735S   tft;
+TFT_eSPI      tft = TFT_eSPI();
 IMU_BNO055    imu;
 PWM_PCA9685   pwm;
 
@@ -97,37 +101,6 @@ bool is_swA(void)
 	return sw.getState_Switch_A();
 }
 
-void swA_bitmap(void)
-{
-	tft.draw_BitmapColor(0, 0, Artron_icon, 160, 128);
-	while (1)
-	{
-		if (is_swA())
-		{
-			while (is_swA())
-				;
-			tft.clear();
-			return;
-		}
-
-		unsigned long currentMillis = millis();
-		if (currentMillis - previousMillis >= interval)
-		{
-			previousMillis = currentMillis;
-			screenState    = !screenState;
-
-			if (screenState)
-			{
-				tft.draw_BitmapColor(60, 80, button_A_1, 40, 40);
-			}
-			else
-			{
-				tft.draw_BitmapColor(60, 80, button_A_2, 40, 40);
-			}
-		}
-	}
-}
-
 //- ================ Switch - B ================================
 
 #define wait_swB(void) swB()
@@ -155,37 +128,6 @@ void swB(void)
 bool is_swB(void)
 {
 	return sw.getState_Switch_B();
-}
-
-void swB_bitmap(void)
-{
-	tft.draw_BitmapColor(0, 0, Artron_icon, 160, 128);
-	while (1)
-	{
-		if (is_swB())
-		{
-			while (is_swB())
-				;
-			tft.clear();
-			return;
-		}
-
-		unsigned long currentMillis = millis();
-		if (currentMillis - previousMillis >= interval)
-		{
-			previousMillis = currentMillis;
-			screenState    = !screenState;
-
-			if (screenState)
-			{
-				tft.draw_BitmapColor(60, 80, button_B_1, 40, 40);
-			}
-			else
-			{
-				tft.draw_BitmapColor(60, 80, button_B_2, 40, 40);
-			}
-		}
-	}
 }
 
 //- ================ Knob ================================

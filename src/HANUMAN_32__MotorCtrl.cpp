@@ -15,8 +15,7 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-MotorCtrl::MotorCtrl(void)
-{
+MotorCtrl::MotorCtrl(void) {
 	pinMode(__DEFINE__M1_DIR, OUTPUT);
 	pinMode(__DEFINE__M2_DIR, OUTPUT);
 	pinMode(__DEFINE__M3_DIR, OUTPUT);
@@ -40,88 +39,27 @@ MotorCtrl::MotorCtrl(void)
 
 //"" --------------------------------
 
-void MotorCtrl::M1(short Speed)
-{
-	if (Speed < 0)
-	{
-		Speed = abs(Speed);
-		digitalWrite(__DEFINE__M1_DIR, 1);
-	}
-	else
-	{
-		digitalWrite(__DEFINE__M1_DIR, 0);
-	}
-	if (Speed > 100)
-	{
-		Speed = 100;
-	}
-
-	Speed = map(Speed, 0, 100, 0, 255);
-	analogWrite(__DEFINE__M1_PWM, Speed);
+void MotorCtrl::M1(int speed) {
+    digitalWrite(__DEFINE__M1_DIR, speed < 0);
+	analogWrite(__DEFINE__M1_PWM, min(255, abs(speed)));
 }
 
-void MotorCtrl::M2(short Speed)
-{
-	if (Speed < 0)
-	{
-		Speed = abs(Speed);
-		digitalWrite(__DEFINE__M2_DIR, 1);
-	}
-	else
-	{
-		digitalWrite(__DEFINE__M2_DIR, 0);
-	}
-	if (Speed > 100)
-	{
-		Speed = 100;
-	}
-
-	Speed = map(Speed, 0, 100, 0, 255);
-	analogWrite(__DEFINE__M2_PWM, Speed);
+void MotorCtrl::M2(int speed) {
+	digitalWrite(__DEFINE__M2_DIR, speed < 0);
+	analogWrite(__DEFINE__M2_PWM, min(255, abs(speed)));
 }
 
-void MotorCtrl::M3(short Speed)
-{
-	if (Speed < 0)
-	{
-		Speed = abs(Speed);
-		digitalWrite(__DEFINE__M3_DIR, 1);
-	}
-	else
-	{
-		digitalWrite(__DEFINE__M3_DIR, 0);
-	}
-	if (Speed > 100)
-	{
-		Speed = 100;
-	}
-
-	Speed = map(Speed, 0, 100, 0, 255);
-	analogWrite(__DEFINE__M3_PWM, Speed);
+void MotorCtrl::M3(int speed) {
+    digitalWrite(__DEFINE__M3_DIR, speed < 0);
+	analogWrite(__DEFINE__M3_PWM, min(255, abs(speed)));
 }
 
-void MotorCtrl::M4(short Speed)
-{
-	if (Speed < 0)
-	{
-		Speed = abs(Speed);
-		digitalWrite(__DEFINE__M4_DIR, 1);
-	}
-	else
-	{
-		digitalWrite(__DEFINE__M4_DIR, 0);
-	}
-	if (Speed > 100)
-	{
-		Speed = 100;
-	}
-
-	Speed = map(Speed, 0, 100, 0, 255);
-	analogWrite(__DEFINE__M4_PWM, Speed);
+void MotorCtrl::M4(int speed) {
+    digitalWrite(__DEFINE__M4_DIR, speed < 0);
+	analogWrite(__DEFINE__M4_PWM, min(255, abs(speed)));
 }
 
-void MotorCtrl::Stop(void)
-{
+void MotorCtrl::Stop(void) {
 	analogWrite(__DEFINE__M1_PWM, 0);
 	analogWrite(__DEFINE__M2_PWM, 0);
 	analogWrite(__DEFINE__M3_PWM, 0);
