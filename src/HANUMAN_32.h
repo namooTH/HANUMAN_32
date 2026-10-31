@@ -385,9 +385,6 @@ void enc_setDir(uint8_t encoder, bool direction)
 
 //- ================ Motor - Control ================================
 
-#define Motor motor
-#define MOTOR motor
-
 void motor(uint8_t channel, int16_t speed)
 {
 	if (channel > 4)
