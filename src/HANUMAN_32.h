@@ -971,8 +971,14 @@ int32_t Controller_accelZ(void)
 //\ • Initialization
 /// ================================================================================================================================
 
-void __initialize_Hanuman32(void)
-{
+extern "C" void customInitialize(void) __attribute__((weak));
+
+void initialize(void) {
+    if (customInitialize) return customInitialize();
+
+    tft.init();
+    tft.setRotation(4);
+    tft.initDMA();
 	delay(500);
 	imu.__init__();
 	pwm.__init__();
@@ -984,7 +990,7 @@ void __initialize_Hanuman32(void)
 
 void initVariant(void)
 {
-	__initialize_Hanuman32();
+	initialize();
 }
 
 //\ ================================================================================================================================
